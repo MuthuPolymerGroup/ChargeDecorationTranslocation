@@ -1,0 +1,658 @@
+####################Chain Equilibriation ########################
+clear
+
+#Initialization 
+#----------------------------------------------------------------
+units		lj
+dimension	3
+atom_style	full
+boundary	f f f
+
+
+#Atom Definition
+#----------------------------------------------------------------
+read_data	trans45.dat
+
+
+#Force Definition
+#----------------------------------------------------------------
+bond_style	harmonic
+bond_coeff	1 10687 1.0
+
+#Angle definition
+angle_style		cosine/squared
+angle_coeff		1 600 65
+
+special_bonds	lj/coul 0 1 1 angle yes
+dielectric	80
+pair_style	lj/cut/coul/debye 0.8117 5 10
+pair_modify	shift yes
+pair_coeff	1 1 1.0 1.0 1.12 3.0
+pair_coeff	1 2 1.0 0.8942 1.00 3.0
+pair_coeff	1 3 1.0 3.0818 3.45 3.0
+pair_coeff	1 4 1.0 2.6032 2.92 3.0
+pair_coeff	1 5 1.0 2.5615 2.87 3.0
+pair_coeff	1 6 1.0 2.5400 2.8448 3.0
+pair_coeff	1 7 1.0 2.7304 3.06 3.0
+pair_coeff	1 8 1.0 2.8151 3.15 3.0
+pair_coeff	1 9 1.0 2.3059 2.58 3.0
+pair_coeff	1 10 1.0 2.8600 3.20 3.0
+pair_coeff	1 11 1.0 2.7503 3.08 3.0
+pair_coeff	1 12 1.0 2.7366 3.06 3.0
+pair_coeff	1 13 1.0 2.9923 3.35 3.0
+pair_coeff	1 14 1.0 2.7503 3.08 3.0
+pair_coeff	1 15 1.0 2.8653 3.21 3.0
+pair_coeff	1 16 1.0 2.5386 2.84 3.0
+pair_coeff	1 17 1.0 2.4278 2.72 3.0
+pair_coeff	1 18 1.0 2.5400 2.8448 3.0
+pair_coeff	1 19 1.0 3.1250 3.50 3.0
+pair_coeff	1 20 1.0 3.0330 3.40 3.0
+pair_coeff	1 21 1.0 2.5970 2.91 3.0
+pair_coeff	1 22 1.0 1.00 1.00 3.0
+pair_coeff	2 2 1.0 2.3919 2.68 3.0
+pair_coeff	2 3 1.0 3.0818 3.45 3.0
+pair_coeff	2 4 1.0 2.6032 2.92 3.0
+pair_coeff	2 5 1.0 2.5615 2.87 3.0
+pair_coeff	2 6 1.0 2.5400 2.8448 3.0
+pair_coeff	2 7 1.0 2.7304 3.06 3.0
+pair_coeff	2 8 1.0 2.8151 3.15 3.0
+pair_coeff	2 9 1.0 2.3059 2.58 3.0
+pair_coeff	2 10 1.0 2.8600 3.20 3.0
+pair_coeff	2 11 1.0 2.7503 3.08 3.0
+pair_coeff	2 12 1.0 2.7366 3.06 3.0
+pair_coeff	2 13 1.0 2.9923 3.35 3.0
+pair_coeff	2 14 1.0 2.7503 3.08 3.0
+pair_coeff	2 15 1.0 2.8653 3.21 3.0
+pair_coeff	2 16 1.0 2.5386 2.84 3.0
+pair_coeff	2 17 1.0 2.4278 2.72 3.0
+pair_coeff	2 18 1.0 2.5400 2.8448 3.0
+pair_coeff	2 19 1.0 3.1250 3.50 3.0
+pair_coeff	2 20 1.0 3.0330 3.40 3.0
+pair_coeff	2 21 1.0 2.5970 2.91 3.0
+pair_coeff	2 22 1.0 1.00 1.00 3.0
+pair_coeff	3 3 1.0 3.0818 3.45 3.0
+pair_coeff	3 4 1.0 2.6032 2.92 3.0
+pair_coeff	3 5 1.0 2.5615 2.87 3.0
+pair_coeff	3 6 1.0 2.5400 2.8448 3.0
+pair_coeff	3 7 1.0 2.7304 3.06 3.0
+pair_coeff	3 8 1.0 2.8151 3.15 3.0
+pair_coeff	3 9 1.0 2.3059 2.58 3.0
+pair_coeff	3 10 1.0 2.8600 3.20 3.0
+pair_coeff	3 11 1.0 2.7503 3.08 3.0
+pair_coeff	3 12 1.0 2.7366 3.06 3.0
+pair_coeff	3 13 1.0 2.9923 3.35 3.0
+pair_coeff	3 14 1.0 2.7503 3.08 3.0
+pair_coeff	3 15 1.0 2.8653 3.21 3.0
+pair_coeff	3 16 1.0 2.5386 2.84 3.0
+pair_coeff	3 17 1.0 2.4278 2.72 3.0
+pair_coeff	3 18 1.0 2.5400 2.8448 3.0
+pair_coeff	3 19 1.0 3.1250 3.50 3.0
+pair_coeff	3 20 1.0 3.0330 3.40 3.0
+pair_coeff	3 21 1.0 2.5970 2.91 3.0
+pair_coeff	3 22 1.0 1.00 1.00 3.0
+pair_coeff	4 4 1.0 2.6032 2.92 3.0
+pair_coeff	4 5 1.0 2.5615 2.87 3.0
+pair_coeff	4 6 1.0 2.5400 2.8448 3.0
+pair_coeff	4 7 1.0 2.7304 3.06 3.0
+pair_coeff	4 8 1.0 2.8151 3.15 3.0
+pair_coeff	4 9 1.0 2.3059 2.58 3.0
+pair_coeff	4 10 1.0 2.8600 3.20 3.0
+pair_coeff	4 11 1.0 2.7503 3.08 3.0
+pair_coeff	4 12 1.0 2.7366 3.06 3.0
+pair_coeff	4 13 1.0 2.9923 3.35 3.0
+pair_coeff	4 14 1.0 2.7503 3.08 3.0
+pair_coeff	4 15 1.0 2.8653 3.21 3.0
+pair_coeff	4 16 1.0 2.5386 2.84 3.0
+pair_coeff	4 17 1.0 2.4278 2.72 3.0
+pair_coeff	4 18 1.0 2.5400 2.8448 3.0
+pair_coeff	4 19 1.0 3.1250 3.50 3.0
+pair_coeff	4 20 1.0 3.0330 3.40 3.0
+pair_coeff	4 21 1.0 2.5970 2.91 3.0
+pair_coeff	4 22 1.0 1.00 1.00 3.0
+pair_coeff	5 5 1.0 2.5615 2.87 3.0
+pair_coeff	5 6 1.0 2.5400 2.8448 3.0
+pair_coeff	5 7 1.0 2.7304 3.06 3.0
+pair_coeff	5 8 1.0 2.8151 3.15 3.0
+pair_coeff	5 9 1.0 2.3059 2.58 3.0
+pair_coeff	5 10 1.0 2.8600 3.20 3.0
+pair_coeff	5 11 1.0 2.7503 3.08 3.0
+pair_coeff	5 12 1.0 2.7366 3.06 3.0
+pair_coeff	5 13 1.0 2.9923 3.35 3.0
+pair_coeff	5 14 1.0 2.7503 3.08 3.0
+pair_coeff	5 15 1.0 2.8653 3.21 3.0
+pair_coeff	5 16 1.0 2.5386 2.84 3.0
+pair_coeff	5 17 1.0 2.4278 2.72 3.0
+pair_coeff	5 18 1.0 2.5400 2.8448 3.0
+pair_coeff	5 19 1.0 3.1250 3.50 3.0
+pair_coeff	5 20 1.0 3.0330 3.40 3.0
+pair_coeff	5 21 1.0 2.5970 2.91 3.0
+pair_coeff	5 22 1.0 1.00 1.00 3.0
+pair_coeff	6 6 1.0 2.5400 2.8448 3.0
+pair_coeff	6 7 1.0 2.7304 3.06 3.0
+pair_coeff	6 8 1.0 2.8151 3.15 3.0
+pair_coeff	6 9 1.0 2.3059 2.58 3.0
+pair_coeff	6 10 1.0 2.8600 3.20 3.0
+pair_coeff	6 11 1.0 2.7503 3.08 3.0
+pair_coeff	6 12 1.0 2.7366 3.06 3.0
+pair_coeff	6 13 1.0 2.9923 3.35 3.0
+pair_coeff	6 14 1.0 2.7503 3.08 3.0
+pair_coeff	6 15 1.0 2.8653 3.21 3.0
+pair_coeff	6 16 1.0 2.5386 2.84 3.0
+pair_coeff	6 17 1.0 2.4278 2.72 3.0
+pair_coeff	6 18 1.0 2.5400 2.8448 3.0
+pair_coeff	6 19 1.0 3.1250 3.50 3.0
+pair_coeff	6 20 1.0 3.0330 3.40 3.0
+pair_coeff	6 21 1.0 2.5970 2.91 3.0
+pair_coeff	6 22 1.0 1.00 1.00 3.0
+pair_coeff	7 7 1.0 2.7304 3.06 3.0
+pair_coeff	7 8 1.0 2.8151 3.15 3.0
+pair_coeff	7 9 1.0 2.3059 2.58 3.0
+pair_coeff	7 10 1.0 2.8600 3.20 3.0
+pair_coeff	7 11 1.0 2.7503 3.08 3.0
+pair_coeff	7 12 1.0 2.7366 3.06 3.0
+pair_coeff	7 13 1.0 2.9923 3.35 3.0
+pair_coeff	7 14 1.0 2.7503 3.08 3.0
+pair_coeff	7 15 1.0 2.8653 3.21 3.0
+pair_coeff	7 16 1.0 2.5386 2.84 3.0
+pair_coeff	7 17 1.0 2.4278 2.72 3.0
+pair_coeff	7 18 1.0 2.5400 2.8448 3.0
+pair_coeff	7 19 1.0 3.1250 3.50 3.0
+pair_coeff	7 20 1.0 3.0330 3.40 3.0
+pair_coeff	7 21 1.0 2.5970 2.91 3.0
+pair_coeff	7 22 1.0 1.00 1.00 3.0
+pair_coeff	8 8 1.0 2.8151 3.15 3.0
+pair_coeff	8 9 1.0 2.3059 2.58 3.0
+pair_coeff	8 10 1.0 2.8600 3.20 3.0
+pair_coeff	8 11 1.0 2.7503 3.08 3.0
+pair_coeff	8 12 1.0 2.7366 3.06 3.0
+pair_coeff	8 13 1.0 2.9923 3.35 3.0
+pair_coeff	8 14 1.0 2.7503 3.08 3.0
+pair_coeff	8 15 1.0 2.8653 3.21 3.0
+pair_coeff	8 16 1.0 2.5386 2.84 3.0
+pair_coeff	8 17 1.0 2.4278 2.72 3.0
+pair_coeff	8 18 1.0 2.5400 2.8448 3.0
+pair_coeff	8 19 1.0 3.1250 3.50 3.0
+pair_coeff	8 20 1.0 3.0330 3.40 3.0
+pair_coeff	8 21 1.0 2.5970 2.91 3.0
+pair_coeff	8 22 1.0 1.00 1.00 3.0
+pair_coeff	9 9 1.0 2.3059 2.58 3.0
+pair_coeff	9 10 1.0 2.8600 3.20 3.0
+pair_coeff	9 11 1.0 2.7503 3.08 3.0
+pair_coeff	9 12 1.0 2.7366 3.06 3.0
+pair_coeff	9 13 1.0 2.9923 3.35 3.0
+pair_coeff	9 14 1.0 2.7503 3.08 3.0
+pair_coeff	9 15 1.0 2.8653 3.21 3.0
+pair_coeff	9 16 1.0 2.5386 2.84 3.0
+pair_coeff	9 17 1.0 2.4278 2.72 3.0
+pair_coeff	9 18 1.0 2.5400 2.8448 3.0
+pair_coeff	9 19 1.0 3.1250 3.50 3.0
+pair_coeff	9 20 1.0 3.0330 3.40 3.0
+pair_coeff	9 21 1.0 2.5970 2.91 3.0
+pair_coeff	9 22 1.0 1.00 1.00 3.0
+pair_coeff	10 10 1.0 2.8600 3.20 3.0
+pair_coeff	10 11 1.0 2.7503 3.08 3.0
+pair_coeff	10 12 1.0 2.7366 3.06 3.0
+pair_coeff	10 13 1.0 2.9923 3.35 3.0
+pair_coeff	10 14 1.0 2.7503 3.08 3.0
+pair_coeff	10 15 1.0 2.8653 3.21 3.0
+pair_coeff	10 16 1.0 2.5386 2.84 3.0
+pair_coeff	10 17 1.0 2.4278 2.72 3.0
+pair_coeff	10 18 1.0 2.5400 2.8448 3.0
+pair_coeff	10 19 1.0 3.1250 3.50 3.0
+pair_coeff	10 20 1.0 3.0330 3.40 3.0
+pair_coeff	10 21 1.0 2.5970 2.91 3.0
+pair_coeff	10 22 1.0 1.00 1.00 3.0
+pair_coeff	11 11 1.0 2.7503 3.08 3.0
+pair_coeff	11 12 1.0 2.7366 3.06 3.0
+pair_coeff	11 13 1.0 2.9923 3.35 3.0
+pair_coeff	11 14 1.0 2.7503 3.08 3.0
+pair_coeff	11 15 1.0 2.8653 3.21 3.0
+pair_coeff	11 16 1.0 2.5386 2.84 3.0
+pair_coeff	11 17 1.0 2.4278 2.72 3.0
+pair_coeff	11 18 1.0 2.5400 2.8448 3.0
+pair_coeff	11 19 1.0 3.1250 3.50 3.0
+pair_coeff	11 20 1.0 3.0330 3.40 3.0
+pair_coeff	11 21 1.0 2.5970 2.91 3.0
+pair_coeff	11 22 1.0 1.00 1.00 3.0
+pair_coeff	12 12 1.0 2.7366 3.06 3.0
+pair_coeff	12 13 1.0 2.9923 3.35 3.0
+pair_coeff	12 14 1.0 2.7503 3.08 3.0
+pair_coeff	12 15 1.0 2.8653 3.21 3.0
+pair_coeff	12 16 1.0 2.5386 2.84 3.0
+pair_coeff	12 17 1.0 2.4278 2.72 3.0
+pair_coeff	12 18 1.0 2.5400 2.8448 3.0
+pair_coeff	12 19 1.0 3.1250 3.50 3.0
+pair_coeff	12 20 1.0 3.0330 3.40 3.0
+pair_coeff	12 21 1.0 2.5970 2.91 3.0
+pair_coeff	12 22 1.0 1.00 1.00 3.0
+pair_coeff	13 13 1.0 2.9923 3.35 3.0
+pair_coeff	13 14 1.0 2.7503 3.08 3.0
+pair_coeff	13 15 1.0 2.8653 3.21 3.0
+pair_coeff	13 16 1.0 2.5386 2.84 3.0
+pair_coeff	13 17 1.0 2.4278 2.72 3.0
+pair_coeff	13 18 1.0 2.5400 2.8448 3.0
+pair_coeff	13 19 1.0 3.1250 3.50 3.0
+pair_coeff	13 20 1.0 3.0330 3.40 3.0
+pair_coeff	13 21 1.0 2.5970 2.91 3.0
+pair_coeff	13 22 1.0 1.00 1.00 3.0
+pair_coeff	14 14 1.0 2.7503 3.08 3.0
+pair_coeff	14 15 1.0 2.8653 3.21 3.0
+pair_coeff	14 16 1.0 2.5386 2.84 3.0
+pair_coeff	14 17 1.0 2.4278 2.72 3.0
+pair_coeff	14 18 1.0 2.5400 2.8448 3.0
+pair_coeff	14 19 1.0 3.1250 3.50 3.0
+pair_coeff	14 20 1.0 3.0330 3.40 3.0
+pair_coeff	14 21 1.0 2.5970 2.91 3.0
+pair_coeff	14 22 1.0 1.00 1.00 3.0
+pair_coeff	15 15 1.0 2.8653 3.21 3.0
+pair_coeff	15 16 1.0 2.5386 2.84 3.0
+pair_coeff	15 17 1.0 2.4278 2.72 3.0
+pair_coeff	15 18 1.0 2.5400 2.8448 3.0
+pair_coeff	15 19 1.0 3.1250 3.50 3.0
+pair_coeff	15 20 1.0 3.0330 3.40 3.0
+pair_coeff	15 21 1.0 2.5970 2.91 3.0
+pair_coeff	15 22 1.0 1.00 1.00 3.0
+pair_coeff	16 16 1.0 2.5386 2.84 3.0
+pair_coeff	16 17 1.0 2.4278 2.72 3.0
+pair_coeff	16 18 1.0 2.5400 2.8448 3.0
+pair_coeff	16 19 1.0 3.1250 3.50 3.0
+pair_coeff	16 20 1.0 3.0330 3.40 3.0
+pair_coeff	16 21 1.0 2.5970 2.91 3.0
+pair_coeff	16 22 1.0 1.00 1.00 3.0
+pair_coeff	17 17 1.0 2.4278 2.72 3.0
+pair_coeff	17 18 1.0 2.5400 2.8448 3.0
+pair_coeff	17 19 1.0 3.1250 3.50 3.0
+pair_coeff	17 20 1.0 3.0330 3.40 3.0
+pair_coeff	17 21 1.0 2.5970 2.91 3.0
+pair_coeff	17 22 1.0 1.00 1.00 3.0
+pair_coeff	18 18 1.0 2.5400 2.8448 3.0
+pair_coeff	18 19 1.0 3.1250 3.50 3.0
+pair_coeff	18 20 1.0 3.0330 3.40 3.0
+pair_coeff	18 21 1.0 2.5970 2.91 3.0
+pair_coeff	18 22 1.0 1.00 1.00 3.0
+pair_coeff	19 19 1.0 3.1250 3.50 3.0
+pair_coeff	19 20 1.0 3.0330 3.40 3.0
+pair_coeff	19 21 1.0 2.5970 2.91 3.0
+pair_coeff	19 22 1.0 1.00 1.00 3.0
+pair_coeff	20 20 1.0 3.0330 3.40 3.0
+pair_coeff	20 21 1.0 2.5970 2.91 3.0
+pair_coeff	20 22 1.0 1.00 1.00 3.0
+pair_coeff	21 21 1.0 2.5970 2.91 3.0
+pair_coeff	21 22 1.0 1.00 1.00 3.0
+pair_coeff	22 22 1.0 1.00 1.00 3.0
+
+#Group Definition 
+#----------------------------------------------------------------
+group 	  DNA	molecule <> 1 1
+
+
+#Neighbor Modify
+#----------------------------------------------------------------
+neigh_modify	exclude type 2 2
+neigh_modify	exclude type 2 3
+neigh_modify	exclude type 2 4
+neigh_modify	exclude type 2 5
+neigh_modify	exclude type 2 6
+neigh_modify	exclude type 2 7
+neigh_modify	exclude type 2 8
+neigh_modify	exclude type 2 9
+neigh_modify	exclude type 2 10
+neigh_modify	exclude type 2 11
+neigh_modify	exclude type 2 12
+neigh_modify	exclude type 2 13
+neigh_modify	exclude type 2 14
+neigh_modify	exclude type 2 15
+neigh_modify	exclude type 2 16
+neigh_modify	exclude type 2 17
+neigh_modify	exclude type 2 18
+neigh_modify	exclude type 2 19
+neigh_modify	exclude type 2 20
+neigh_modify	exclude type 2 21
+neigh_modify	exclude type 2 22
+neigh_modify	exclude type 3 3
+neigh_modify	exclude type 3 4
+neigh_modify	exclude type 3 5
+neigh_modify	exclude type 3 6
+neigh_modify	exclude type 3 7
+neigh_modify	exclude type 3 8
+neigh_modify	exclude type 3 9
+neigh_modify	exclude type 3 10
+neigh_modify	exclude type 3 11
+neigh_modify	exclude type 3 12
+neigh_modify	exclude type 3 13
+neigh_modify	exclude type 3 14
+neigh_modify	exclude type 3 15
+neigh_modify	exclude type 3 16
+neigh_modify	exclude type 3 17
+neigh_modify	exclude type 3 18
+neigh_modify	exclude type 3 19
+neigh_modify	exclude type 3 20
+neigh_modify	exclude type 3 21
+neigh_modify	exclude type 3 22
+neigh_modify	exclude type 4 4
+neigh_modify	exclude type 4 5
+neigh_modify	exclude type 4 6
+neigh_modify	exclude type 4 7
+neigh_modify	exclude type 4 8
+neigh_modify	exclude type 4 9
+neigh_modify	exclude type 4 10
+neigh_modify	exclude type 4 11
+neigh_modify	exclude type 4 12
+neigh_modify	exclude type 4 13
+neigh_modify	exclude type 4 14
+neigh_modify	exclude type 4 15
+neigh_modify	exclude type 4 16
+neigh_modify	exclude type 4 17
+neigh_modify	exclude type 4 18
+neigh_modify	exclude type 4 19
+neigh_modify	exclude type 4 20
+neigh_modify	exclude type 4 21
+neigh_modify	exclude type 4 22
+neigh_modify	exclude type 5 5
+neigh_modify	exclude type 5 6
+neigh_modify	exclude type 5 7
+neigh_modify	exclude type 5 8
+neigh_modify	exclude type 5 9
+neigh_modify	exclude type 5 10
+neigh_modify	exclude type 5 11
+neigh_modify	exclude type 5 12
+neigh_modify	exclude type 5 13
+neigh_modify	exclude type 5 14
+neigh_modify	exclude type 5 15
+neigh_modify	exclude type 5 16
+neigh_modify	exclude type 5 17
+neigh_modify	exclude type 5 18
+neigh_modify	exclude type 5 19
+neigh_modify	exclude type 5 20
+neigh_modify	exclude type 5 21
+neigh_modify	exclude type 5 22
+neigh_modify	exclude type 6 6
+neigh_modify	exclude type 6 7
+neigh_modify	exclude type 6 8
+neigh_modify	exclude type 6 9
+neigh_modify	exclude type 6 10
+neigh_modify	exclude type 6 11
+neigh_modify	exclude type 6 12
+neigh_modify	exclude type 6 13
+neigh_modify	exclude type 6 14
+neigh_modify	exclude type 6 15
+neigh_modify	exclude type 6 16
+neigh_modify	exclude type 6 17
+neigh_modify	exclude type 6 18
+neigh_modify	exclude type 6 19
+neigh_modify	exclude type 6 20
+neigh_modify	exclude type 6 21
+neigh_modify	exclude type 6 22
+neigh_modify	exclude type 7 7
+neigh_modify	exclude type 7 8
+neigh_modify	exclude type 7 9
+neigh_modify	exclude type 7 10
+neigh_modify	exclude type 7 11
+neigh_modify	exclude type 7 12
+neigh_modify	exclude type 7 13
+neigh_modify	exclude type 7 14
+neigh_modify	exclude type 7 15
+neigh_modify	exclude type 7 16
+neigh_modify	exclude type 7 17
+neigh_modify	exclude type 7 18
+neigh_modify	exclude type 7 19
+neigh_modify	exclude type 7 20
+neigh_modify	exclude type 7 21
+neigh_modify	exclude type 7 22
+neigh_modify	exclude type 8 8
+neigh_modify	exclude type 8 9
+neigh_modify	exclude type 8 10
+neigh_modify	exclude type 8 11
+neigh_modify	exclude type 8 12
+neigh_modify	exclude type 8 13
+neigh_modify	exclude type 8 14
+neigh_modify	exclude type 8 15
+neigh_modify	exclude type 8 16
+neigh_modify	exclude type 8 17
+neigh_modify	exclude type 8 18
+neigh_modify	exclude type 8 19
+neigh_modify	exclude type 8 20
+neigh_modify	exclude type 8 21
+neigh_modify	exclude type 8 22
+neigh_modify	exclude type 9 9
+neigh_modify	exclude type 9 10
+neigh_modify	exclude type 9 11
+neigh_modify	exclude type 9 12
+neigh_modify	exclude type 9 13
+neigh_modify	exclude type 9 14
+neigh_modify	exclude type 9 15
+neigh_modify	exclude type 9 16
+neigh_modify	exclude type 9 17
+neigh_modify	exclude type 9 18
+neigh_modify	exclude type 9 19
+neigh_modify	exclude type 9 20
+neigh_modify	exclude type 9 21
+neigh_modify	exclude type 9 22
+neigh_modify	exclude type 10 10
+neigh_modify	exclude type 10 11
+neigh_modify	exclude type 10 12
+neigh_modify	exclude type 10 13
+neigh_modify	exclude type 10 14
+neigh_modify	exclude type 10 15
+neigh_modify	exclude type 10 16
+neigh_modify	exclude type 10 17
+neigh_modify	exclude type 10 18
+neigh_modify	exclude type 10 19
+neigh_modify	exclude type 10 20
+neigh_modify	exclude type 10 21
+neigh_modify	exclude type 10 22
+neigh_modify	exclude type 11 11
+neigh_modify	exclude type 11 12
+neigh_modify	exclude type 11 13
+neigh_modify	exclude type 11 14
+neigh_modify	exclude type 11 15
+neigh_modify	exclude type 11 16
+neigh_modify	exclude type 11 17
+neigh_modify	exclude type 11 18
+neigh_modify	exclude type 11 19
+neigh_modify	exclude type 11 20
+neigh_modify	exclude type 11 21
+neigh_modify	exclude type 11 22
+neigh_modify	exclude type 12 12
+neigh_modify	exclude type 12 13
+neigh_modify	exclude type 12 14
+neigh_modify	exclude type 12 15
+neigh_modify	exclude type 12 16
+neigh_modify	exclude type 12 17
+neigh_modify	exclude type 12 18
+neigh_modify	exclude type 12 19
+neigh_modify	exclude type 12 20
+neigh_modify	exclude type 12 21
+neigh_modify	exclude type 12 22
+neigh_modify	exclude type 13 13
+neigh_modify	exclude type 13 14
+neigh_modify	exclude type 13 15
+neigh_modify	exclude type 13 16
+neigh_modify	exclude type 13 17
+neigh_modify	exclude type 13 18
+neigh_modify	exclude type 13 19
+neigh_modify	exclude type 13 20
+neigh_modify	exclude type 13 21
+neigh_modify	exclude type 13 22
+neigh_modify	exclude type 14 14
+neigh_modify	exclude type 14 15
+neigh_modify	exclude type 14 16
+neigh_modify	exclude type 14 17
+neigh_modify	exclude type 14 18
+neigh_modify	exclude type 14 19
+neigh_modify	exclude type 14 20
+neigh_modify	exclude type 14 21
+neigh_modify	exclude type 14 22
+neigh_modify	exclude type 15 15
+neigh_modify	exclude type 15 16
+neigh_modify	exclude type 15 17
+neigh_modify	exclude type 15 18
+neigh_modify	exclude type 15 19
+neigh_modify	exclude type 15 20
+neigh_modify	exclude type 15 21
+neigh_modify	exclude type 15 22
+neigh_modify	exclude type 16 16
+neigh_modify	exclude type 16 17
+neigh_modify	exclude type 16 18
+neigh_modify	exclude type 16 19
+neigh_modify	exclude type 16 20
+neigh_modify	exclude type 16 21
+neigh_modify	exclude type 16 22
+neigh_modify	exclude type 17 17
+neigh_modify	exclude type 17 18
+neigh_modify	exclude type 17 19
+neigh_modify	exclude type 17 20
+neigh_modify	exclude type 17 21
+neigh_modify	exclude type 17 22
+neigh_modify	exclude type 18 18
+neigh_modify	exclude type 18 19
+neigh_modify	exclude type 18 20
+neigh_modify	exclude type 18 21
+neigh_modify	exclude type 18 22
+neigh_modify	exclude type 19 19
+neigh_modify	exclude type 19 20
+neigh_modify	exclude type 19 21
+neigh_modify	exclude type 19 22
+neigh_modify	exclude type 20 20
+neigh_modify	exclude type 20 21
+neigh_modify	exclude type 20 22
+neigh_modify	exclude type 21 21
+neigh_modify	exclude type 21 22
+neigh_modify	exclude type 22 22
+
+#Settings		
+#----------------------------------------------------------------
+timestep	0.003
+run_style	verlet
+velocity	DNA create 1 48284
+
+
+#Variables
+#----------------------------------------------------------------
+variable z1 equal z[3]
+variable z2 equal z[6]
+variable z3 equal z[9]
+variable z4 equal z[12]
+variable z5 equal z[15]
+variable z6 equal z[18]
+variable z7 equal z[21]
+variable z8 equal z[24]
+variable z9 equal z[27]
+variable z10 equal z[30]
+variable z11 equal z[33]
+variable z12 equal z[36]
+variable z13 equal z[39]
+variable z14 equal z[42]
+variable z15 equal z[45]
+variable z16 equal z[48]
+variable z17 equal z[51]
+variable z18 equal z[54]
+variable z19 equal z[57]
+variable z20 equal z[60]
+variable z21 equal z[63]
+variable z22 equal z[66]
+variable z23 equal z[69]
+variable z24 equal z[72]
+variable z25 equal z[75]
+variable z26 equal z[78]
+variable z27 equal z[81]
+variable z28 equal z[84]
+variable z29 equal z[87]
+variable z30 equal z[90]
+variable z31 equal z[93]
+variable z32 equal z[96]
+variable z33 equal z[99]
+variable z34 equal z[102]
+variable z35 equal z[105]
+variable z36 equal z[108]
+variable z37 equal z[111]
+variable z38 equal z[114]
+variable z39 equal z[117]
+variable z40 equal z[120]
+variable z41 equal z[123]
+variable z42 equal z[126]
+variable z43 equal z[129]
+variable z44 equal z[132]
+variable z45 equal z[135]
+
+variable b1 equal -20
+variable b2 equal 19.2
+
+
+#Fixes and more variables
+#----------------------------------------------------------------
+fix 2 DNA nve molecule
+fix 3 DNA langevin 1 1 1 17292
+
+variable e1 equal 0.0
+variable e2 equal 0.0
+variable e3 equal -0.00053
+variable e4 equal -0.00071
+variable e5 equal -0.00099
+variable e6 equal -0.00136
+variable e7 equal -0.00163
+variable e8 equal -0.00111
+variable e9 equal  0.00109
+variable e10 equal 0.00112
+variable e11 equal -0.00263
+variable e12 equal -0.01468
+variable e13 equal -0.02033
+variable e14 equal -0.02142
+variable e15 equal -0.01863
+variable e16 equal -0.02455
+variable e17 equal -0.05135
+variable e18 equal -0.08963
+variable e19 equal -0.00616
+variable e20 equal -0.00733
+variable e21 equal -0.01178
+variable e22 equal -0.00901
+variable e23 equal -0.01066
+variable e24 equal -0.01013
+variable e25 equal -0.00871
+variable e26 equal -0.00634
+variable e27 equal -0.01696
+variable e28 equal -0.01946
+variable e29 equal -0.01084
+variable e30 equal -0.00546
+variable e31 equal -0.00269
+variable e32 equal -0.00143
+variable e33 equal -0.00084
+
+variable field1 atom ((v_e1*(z<-32))+(v_e2*(z>32))+(v_e3*((z<=-30)&&(z>-32)&&(x<=6.5)&&(x>=-6.5)&&(y<=6.5)&&(y>=-6.5)))+(v_e4*((z<=-28)&&(z>-30)&&(x<=6.5)&&(x>=-6.5)&&(y<=6.5)&&(y>=-6.5)))+(v_e5*((z<=-26)&&(z>-28)&&(x<=6.5)&&(x>=-6.5)&&(y<=6.5)&&(y>=-6.5)))+(v_e6*((z<=-24)&&(z>-26)&&(x<=6.5)&&(x>=-6.5)&&(y<=6.5)&&(y>=-6.5)))+(v_e7*((z<=-22)&&(z>-24)&&(x<=6.5)&&(x>=-6.5)&&(y<=6.5)&&(y>=-6.5)))+(v_e8*((z<=-20)&&(z>-22)&&(x<=6.5)&&(x>=-6.5)&&(y<=6.5)&&(y>=-6.5)))+(v_e9*((z<=-18)&&(z>-20)&&(x<=6.5)&&(x>=-6.5)&&(y<=6.5)&&(y>=-6.5)))+(v_e10*((z<=-16)&&(z>-18)&&(x<=6.5)&&(x>=-6.5)&&(y<=6.5)&&(y>=-6.5)))+(v_e11*((z<=-14)&&(z>-16)&&(x<=6.5)&&(x>=-6.5)&&(y<=6.5)&&(y>=-6.5)))+(v_e12*((z<=-12)&&(z>-14)&&(x<=6.5)&&(x>=-6.5)&&(y<=6.5)&&(y>=-6.5)))+(v_e13*((z<=-10)&&(z>-12)&&(x<=6.5)&&(x>=-6.5)&&(y<=6.5)&&(y>=-6.5)))+(v_e14*((z<=-8)&&(z>-10)&&(x<=6.5)&&(x>=-6.5)&&(y<=6.5)&&(y>=-6.5)))+(v_e15*((z<=-6)&&(z>-8)&&(x<=6.5)&&(x>=-6.5)&&(y<=6.5)&&(y>=-6.5)))+(v_e16*((z<=-4)&&(z>-6)&&(x<=6.5)&&(x>=-6.5)&&(y<=6.5)&&(y>=-6.5)))+(v_e17*((z<=-2)&&(z>-4)&&(x<=6.5)&&(x>=-6.5)&&(y<=6.5)&&(y>=-6.5)))+(v_e18*((z<=0.00)&&(z>-2)&&(x<=6.5)&&(x>=-6.5)&&(y<=6.5)&&(y>=-6.5)))+(v_e19*((z<=2)&&(z>0.00)&&(x<=5)&&(x>=-5)&&(y<=5)&&(y>=-5)))+(v_e20*((z<=4)&&(z>2)&&(x<=5)&&(x>=-5)&&(y<=5)&&(y>=-5)))+(v_e21*((z<=6)&&(z>4)&&(x<=5)&&(x>=-5)&&(y<=5)&&(y>=-5)))+(v_e22*((z<=8)&&(z>6)&&(x<=5)&&(x>=-5)&&(y<=5)&&(y>=-5)))+(v_e23*((z<=10)&&(z>8)&&(x<=5)&&(x>=-5)&&(y<=5)&&(y>=-5)))+(v_e24*((z<=12)&&(z>10)&&(x<=5)&&(x>=-5)&&(y<=5)&&(y>=-5)))+(v_e25*((z<=14)&&(z>12)&&(x<=5)&&(x>=-5)&&(y<=5)&&(y>=-5)))+(v_e26*((z<=16)&&(z>14)&&(x<=5)&&(x>=-5)&&(y<=5)&&(y>=-5)))+(v_e27*((z<=18)&&(z>16)&&(x<=5)&&(x>=-5)&&(y<=5)&&(y>=-5)))+(v_e28*((z<=20)&&(z>18)&&(x<=5)&&(x>=-5)&&(y<=5)&&(y>=-5)))+(v_e29*((z<=22)&&(z>20)&&(x<=5)&&(x>=-5)&&(y<=5)&&(y>=-5)))+(v_e30*((z<=24)&&(z>22)&&(x<=5)&&(x>=-5)&&(y<=5)&&(y>=-5)))+(v_e31*((z<=26)&&(z>24)&&(x<=5)&&(x>=-5)&&(y<=5)&&(y>=-5)))+(v_e32*((z<=28)&&(z>26)&&(x<=5)&&(x>=-5)&&(y<=5)&&(y>=-5)))+(v_e33*((z<=30)&&(z>28)&&(x<=5)&&(x>=-5)&&(y<=5)&&(y>=-5))))
+
+fix ef DNA efield 0.0 0.0 v_field1
+fix walls1 DNA wall/lj126 xhi 21 1.0 1.0 1.12 pbc no units box
+fix walls2 DNA wall/lj126 xlo -21 1.0 1.0 1.12 pbc no units box
+fix walls3 DNA wall/lj126 yhi 21 1.0 1.0 1.12 pbc no units box
+fix walls4 DNA wall/lj126 ylo -21 1.0 1.0 1.12 pbc no units box
+fix walls5 DNA wall/lj126 zhi 60 1.0 1.0 1.12 pbc no units box
+fix walls6 DNA wall/lj126 zlo -60 1.0 1.0 1.12 pbc no units box
+
+#Computes
+#----------------------------------------------------------------
+compute rr DNA gyration
+
+
+#Output
+#----------------------------------------------------------------
+thermo_style	custom step temp evdwl ecoul ebond eangle c_rr
+thermo		10000
+dump		4 DNA xyz 100 dump45.xyz
+#dump		5 DNA custom 1000 dump45.custom id type xu yu zu
+#dump		6 all xyz 1 dump_all.xyz
+
+#Actions
+#----------------------------------------------------------------
+#variable runloop loop 350
+#	label loop
+
+run 10000000 every 100 "if '${z1} > ${b2} && ${z2} > ${b2} && ${z3} > ${b2} && ${z4} > ${b2} && ${z5} > ${b2} && ${z6} > ${b2} && ${z7} > ${b2} && ${z8} > ${b2} && ${z9} > ${b2} && ${z10} > ${b2} && ${z11} > ${b2} && ${z12} > ${b2} && ${z13} > ${b2} && ${z14} > ${b2} && ${z15} > ${b2} && ${z16} > ${b2} && ${z17} > ${b2} && ${z18} > ${b2} && ${z19} > ${b2} && ${z20} > ${b2} && ${z21} > ${b2} && ${z22} > ${b2} && ${z23} > ${b2} && ${z24} > ${b2} && ${z25} > ${b2} && ${z26} > ${b2} && ${z27} > ${b2} && ${z28} > ${b2} && ${z29} > ${b2} && ${z30} > ${b2} && ${z31} > ${b2} && ${z32} > ${b2} && ${z33} > ${b2} && ${z34} > ${b2} && ${z35} > ${b2} && ${z36} > ${b2} && ${z37} > ${b2} && ${z38} > ${b2} && ${z39} > ${b2} && ${z40} > ${b2} && ${z41} > ${b2} && ${z42} > ${b2} && ${z43} > ${b2} && ${z44} > ${b2} && ${z45} > ${b2}' then quit"
+
+#	dump	4 DNA xyz 1000 dump45_4.xyz
+#	dump	5 DNA custom 1000 dump45_4.custom id type xu yu zu
+#	dump	6 all xyz 100 dump_all_4.xyz
+#	next blks
+#        jump SELF loop
+
+#-----------------------------END--------------------------------
+

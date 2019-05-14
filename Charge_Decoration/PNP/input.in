@@ -1,0 +1,59 @@
+IONTYPE
+POT  charge  1.0
+CLA  charge -1.0
+END
+
+DIFFUSION_CONSTANT nclz 2201 dcel 0.1 zbcen 0.0
+POT  zmin -110.0 zmax 110.0 diffusion 0.196
+CLA  zmin -110.0 zmax 110.0 diffusion 0.203
+END
+
+BOUNDARY_CONCENTRATION
+POT  ctop 1.00  cbot 1.00
+CLA  ctop 1.00  cbot 1.00
+END
+
+OPEN read unit 10 name dna_positions_1.dat
+PROTEIN_STRUCTURE unit 10
+
+ITERATION maxpnp 4000 maxphi 4000 maxcion 10000 -
+          tolphi 1.0D-5 tolcion 1.0D-9 lambda 1.0 lambdaphi 0.001 lambdacion 1.0
+
+GRID  nclx 35 ncly 35 nclz 75 dcel 3.0 xbcen 0.0 ybcen 0.0 zbcen 0.0
+
+PHYSICAL_PARAMETERS epsp 2.0 epsw 80.0 temp 300.0 -
+		    conc 1.0 watr 0.0 ionr 0.0
+
+MEMBRANE tmemb 98.0 epsm 2.0 htmemb 0.0 epsh 2.0 zmemb 0.0 vmemb 0.120
+
+OBJECTS rsphe 10.0 xsphe 0.0 ysphe 0.0 zsphe -12.0 epss 80.0 skappa -
+	rcyln 7.5 hcyln 98.0 xcyln 0.0 ycyln 0.0 zcyln 0.0 epsc 80.0 ckappa -
+	bxmax 0.0 bymax 0.0 bzmax 0.0 bxmin 0.0 bymin 0.0 bzmin 0.0 -
+	epsb 80.0 bkappa
+
+PBEQ phixypbc
+
+PBEQ phi underrelax phixypbc
+
+PNP phi phixypbc cionxypbc pnclx 69 pncly 69 pnclz 149 pdcel 1.5 pxbcen 0.0 pybcen 0.0 pzbcen 0.0
+
+ITERATION maxpnp 4000 maxphi 4000 maxcion 10000 -
+          tolphi 1.0D-6 tolcion 1.0D-9 lambda 1.0 lambdaphi 0.005 lambdacion 1.0
+
+PNP phifocus phixypbc cionxypbc pnclx 205 pncly 205 pnclz 445 pdcel 0.5 pxbcen 0.0 pybcen 0.0 pzbcen 0.0
+
+ITERATION maxpnp 4000 maxphi 4000 maxcion 10000 -
+          tolphi 1.0D-6 tolcion 1.0D-9 lambda 1.0 lambdaphi 0.001 lambdacion 1.0
+
+PNP phifocus phixypbc cionxypbc pnclx 341 pncly 341 pnclz 741 pdcel 0.3 pxbcen 0.0 pybcen 0.0 pzbcen 0.0
+
+!PNP phifocus phixypbc cionxypbc pnclx 601 pncly 601 pnclz 1111 pdcel 0.2 pxbcen 0.0 pybcen 0.0 pzbcen 0.0
+
+COUNTERION nonlinear
+
+PROFILE rho flux current
+
+
+write phi volts card unit 6 zfirst -110.0 zlast 110.0
+
+STOP

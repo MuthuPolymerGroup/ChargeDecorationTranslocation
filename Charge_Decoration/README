@@ -1,0 +1,17 @@
+Sample files for executing simulation for the DNA translocation through RL2 mutant version of the alpha-hemolysin pore as described in the reference (jou_muthukumar_2017)
+
+1. LangevinDynamics: Simulation was performed using LAMMPS [1]. in.sim and trans45.dat are the input files for the lammps. log.lammps and dump45.xyz are the output files generated. The conformation and the position of the dna as a function of time is tracked through the dump45.xyz file.
+
+2. PNP: PNP code can be downloaded from:  http://thallium.bsd.uchicago.edu/RouxLab/sub/method/pbpnp.html [2]
+The input files are: input.in and dna_positions_1.dat
+output file is logs.dat which generates potential across the nanopore and the ionic current.
+
+
+
+[1] Plimpton, S. 1995. Fast parallel algorithms for short-range molecular
+dynamics. J. Comput. Phys. 117:1–19. http://lammps.sandia.gov.
+
+[2] Im, W., and B. Roux. 2002. Ion permeation and selectivity of OmpF
+porin: a theoretical study based on molecular dynamics, Brownian dy-
+namics, and continuum electrodiffusion theory. J. Mol. Biol. 322:851–
+869.
